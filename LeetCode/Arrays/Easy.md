@@ -197,4 +197,116 @@ class Solution {
     }
 }
 ```
+# [88. Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m -1;
+        int j = n -1;
+        int k = m+n  -1;
+        
+        while(i>= 0 && j >= 0){
+            if(nums1[i] > nums2[j]){
+                nums1[k--] = nums1[i--];
+            }else{
+                nums1[k--] = nums2[j--];
+            }
+        }
+        while(j>=0){
+            nums1[k--] = nums2[j--];
+        }
+    }
+}
+```
+# [118. Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
+```java
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+     List<List<Integer>> rows = new ArrayList<List<Integer>>();
+     ArrayList<Integer> row = new ArrayList<Integer>();
+     for(int i= 0 ; i < numRows;i++){
+        row.add(0,1);
+        for(int j = 1; j <row.size()-1;j++){
+            row.set(j,row.get(j)+row.get(j+1));
+        }
+        rows.add(new ArrayList<Integer>(row));
+     }   
+     return rows;
+    }
+}
+```
+# [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
+```java
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int[] ans = new int[nums1.length];
+        for(int i = 0; i<nums1.length ; i++){
+            for(int j = 0; j < nums2.length;j++){
+                if(nums1[i] == nums2[j]){
+                    int k;
+                    for(k = j; k < nums2.length ; k++){
+                        if(nums2[j] < nums2[k]){
+                            ans[i] = nums2[k];
+                            break;
+                        }
+                    }
+                    if(k == nums2.length){
+                        ans[i] = -1;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
+```
+# [908. Smallest Range I](https://leetcode.com/problems/smallest-range-i/)
+```java
+class Solution {
+    public int smallestRangeI(int[] nums, int k) {
+        int min = Arrays.stream(nums).min().getAsInt();
+        int max = Arrays.stream(nums).max().getAsInt();
+
+        for(int i = 0; i < k ; i++){
+            min = min +1;
+            max = max -1;
+            if (min > max || min == max) return 0;
+        }
+        return max - min;
+
+    }
+}
+```
+# [1051. Height Checker](https://leetcode.com/problems/height-checker/)
+```java
+class Solution {
+    public int heightChecker(int[] heights) {
+        int res = 0;
+        int[] sorArr = Arrays.copyOf(heights,heights.length);
+        Arrays.sort(sorArr);
+        for(int i = 0 ; i < heights.length ; i++){
+            if(sorArr[i] != heights[i]) res++;
+        }
+        return res;
+    }
+}
+```
+# [1672. Richest Customer Wealth](https://leetcode.com/problems/richest-customer-wealth/)
+```java
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int wealth = Integer.MIN_VALUE;
+        for(int i = 0 ; i < accounts.length ; i++){
+            int sum = 0;
+            for(int j = 0 ; j < accounts[0].length;j++){
+                sum += accounts[i][j];
+                if(sum > wealth){
+                    wealth = sum;
+                }
+            }
+        }
+        return wealth;
+    }
+}
+```
 # 

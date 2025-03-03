@@ -261,5 +261,78 @@ class Solution {
     }
 }
 ```
-# 
+# [46. Permutations](https://leetcode.com/problems/permutations/)
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(result,new ArrayList<>(),nums);
+        return result;
+    }
+    private void backtrack(List<List<Integer>> result, ArrayList<Integer> templist,int[] nums){
+        if(templist.size() == nums.length){
+            result.add(new ArrayList<>(templist));
+            return;
+        }
+        for(int number:nums){
+            if(templist.contains(number)){
+                continue;
+            }
+            templist.add(number);
+            backtrack(result,templist,nums);
+            templist.remove(templist.size()-1);
+        }
+    }
+}
+```
 
+
+# [503. Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/)
+```java
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int[] ans = new int[nums.length];
+        int[] temparr = new int[nums.length *2];
+        for(int i = 0 ; i < nums.length ; i++){
+            temparr[i] = nums[i];
+        }
+        for(int i = nums.length;i<nums.length * 2;i++){
+            temparr[i] = nums[i - nums.length ];
+        }
+        
+        for(int i = 0 ; i < nums.length ; i++){
+            int j;
+            for(j = i+1 ; j < temparr.length;j++){
+                if(nums[i] < temparr[j]){
+                    ans[i] = temparr[j];
+                    break;
+                }
+            }
+            if(j == temparr.length){
+                ans[i] = -1;
+            }
+        }
+        return ans;
+    }
+}
+```
+# [134. Gas Station](https://leetcode.com/problems/gas-station/)
+```java
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int position = 0;int sum = 0;int total = 0 ;
+        
+        for(int i = 0; i < gas.length ; i++){
+            sum += (gas[i]-cost[i]);
+            if(sum < 0){
+                total += sum;
+                sum = 0;
+                position = i+1;
+            }
+        }
+        total +=sum;
+        return total>=0 ? position:-1;
+    }
+}
+```
+#
